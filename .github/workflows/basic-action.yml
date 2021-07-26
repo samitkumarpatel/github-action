@@ -15,10 +15,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run a one-line script
-        ${{ if true}}:
-          run: echo Hello, world!
-        ${{ if false}}:
-          run: echo Hello, mars
+        if: ${{ 5+5 == 10 }}
+        run: echo Hello, world!
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
