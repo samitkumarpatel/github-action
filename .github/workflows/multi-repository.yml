@@ -1,0 +1,24 @@
+
+name: multi-repository-checkout
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: self checkout
+        uses: actions/checkout@v2
+        
+      - name: Checkout test0 repo
+        uses: actions/checkout@v2
+        with:
+          repository: samitkumarpatel/test0
+          path: test0
+      
+      - name: list folder
+        run: | 
+          ls -al
+          ls -al test0
