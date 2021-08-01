@@ -14,13 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/composite/docker-tag
+      - uses: ./.github/composite/test
         with: 
-          imageName: image-one
-  build-2:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/composite/docker-tag
-        with: 
-          imageName: image-two
+          name: samit
