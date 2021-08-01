@@ -5,7 +5,9 @@ name: Conditional Execuation
 on:
   push:
     branches: [ main ]
-    tags: [*]
+  create:
+    tags: 
+    - '*'
  
   workflow_dispatch:
 
