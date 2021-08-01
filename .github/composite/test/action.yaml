@@ -6,5 +6,6 @@ runs:
   using: "composite"
   steps:
     - run: echo Hello ${{ inputs.name }}.
+      name: message
       shell: bash
 
