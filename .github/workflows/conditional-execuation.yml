@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Conditional Execuation
+
+on:
+  push:
+    branches: [ main ]
+    tags: [*]
+ 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: MAIN
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          echo build for MAIN
+          
+      - name: TAGS
+        if: ${{ contains(github.ref,'refs/tags') }}
+        run: |
+          echo build for TAGS
+          
+      - name: TAGS-e
+        if: ${{ github.ref == 'refs/tags/*' }}
+        run: |
+          echo build for TAGS
