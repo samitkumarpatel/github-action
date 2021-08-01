@@ -5,14 +5,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Get the version
-      id: get_version
-      run: |
-          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
     - name: condition
-      if: ${{ false == true }}
+      if: ${{ 'false' == 'true' }}
       run: echo condition pass
       
     - name: version details 
@@ -22,6 +16,6 @@ runs:
         echo $SOURCE_BRANCH
         echo $SOURCE_TAG
       env:
-        SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
-        SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
-        SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+        SOURCE_NAME: X
+        SOURCE_BRANCH: Y
+        SOURCE_TAG: Z
