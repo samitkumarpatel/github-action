@@ -1,0 +1,23 @@
+inputs:
+  imageName: 
+    description: 'Image Name'
+    default: 'dummy'
+runs:
+  using: "composite"
+  steps: 
+    - name: Identify Branch name
+      id: branch_name
+      run: |
+        echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+        echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+        echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+    
+    - name: TAG - latest
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: echo docker build -t ${{ inputs.myInput }}:latest
+      shell: bash
+    
+    - name: TAG - tag ${{ steps.branch_name.outputs.SOURCE_TAG }}
+      if: ${{ contains(github.ref ,'refs/tags') }}
+      run: echo docker build -t ${{ inputs.myInput }}:${{steps.branch_name.outputs.SOURCE_TAG}}
+      shell: bash
