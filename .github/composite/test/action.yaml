@@ -5,10 +5,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: condition
-      if: ${{ 'false' == 'true' }}
-      run: echo condition pass
-      
+
     - name: version details 
       run: |
         echo Hello ${{ inputs.name }}
