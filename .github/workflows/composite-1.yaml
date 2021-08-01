@@ -1,9 +1,0 @@
-inputs:
-  tags: 
-    description: 'Tag To Build'
-    default: 'latest'
-runs:
-  using: "composite"
-  steps: 
-    - run: echo Docker Image Tag - ${{ inputs.tags }}.
-      shell: bash
