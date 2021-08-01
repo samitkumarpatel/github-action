@@ -5,14 +5,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-
-    - name: version details 
+    - name: message 
       run: |
         echo Hello ${{ inputs.name }}
-        echo $SOURCE_NAME
-        echo $SOURCE_BRANCH
-        echo $SOURCE_TAG
-      env:
-        SOURCE_NAME: X
-        SOURCE_BRANCH: Y
-        SOURCE_TAG: Z
+      shell: bash
+
