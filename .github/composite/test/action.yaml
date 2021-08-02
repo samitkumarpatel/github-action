@@ -8,7 +8,4 @@ runs:
     - run: echo Hello ${{ inputs.name }}.
       name: message
       shell: bash
-    - run: echo Hi ${{ inputs.name }}.
-      if: ${{ 5 == 2 }}
-      name: message with condition
-      shell: bash
+    
