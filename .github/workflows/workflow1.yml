@@ -13,12 +13,21 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Token
-        id: get_token
-        run: |
-          token=abcd1234
-          echo "Token : $token"
-          echo "::set-output name=token::$token"
-      - name: Run Test
-        run: |
-          echo ${{ steps.get_token.outputs.token }}
+    - name: Get Token
+      id: get_token
+      run: |
+        token=abcd1234
+        echo "Token : $token"
+        echo "::set-output name=token::$token"
+    - name: Run Test
+      run: |
+        echo "Token: ${{ steps.get_token.outputs.token }}"
+        echo "Token: ${{ steps.outputs.token }}"
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+    - name: Terminate
+      run: |
+        echo "Token ${{ needs.job1.outputs.token }}"
+        
