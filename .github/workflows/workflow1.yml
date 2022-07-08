@@ -1,0 +1,24 @@
+
+name: WorkFlowOne
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Token
+        id: get_token
+        run: |
+          token=abcd1234
+          echo "Token : $token"
+          echo "::set-output name=token::$token"
+      - name: Run Test
+        run: |
+          echo ${{ steps.get_token.outputs.token }}
