@@ -22,12 +22,11 @@ jobs:
     - name: Run Test
       run: |
         echo "Token: ${{ steps.get_token.outputs.token }}"
-        echo "Token: ${{ steps.outputs.token }}"
   job2:
     runs-on: ubuntu-latest
     needs: job1
     steps:
     - name: Terminate
       run: |
-        echo "Token ${{ needs.job1.outputs.token }}"
+        echo "Token ${{ needs.job1.steps.get_token.outputs.token }}"
         
