@@ -2,7 +2,7 @@ name: WorkFlowTwo
 
 on:
   schedule:
-  - cron: ${{ inputs.cron }}
+  - cron: '10 * * * *'
     
   workflow_run:
     workflows: [ "WorkFlowOne" ]
@@ -10,12 +10,7 @@ on:
     types: [ completed ]
 
   workflow_dispatch:
-    inputs:
-      cron:
-        description: 'Schedule the Job'
-        default: '10 * * * *'
-        required: true
-        type: string
+ 
 jobs:
   job1:
     name: job1
