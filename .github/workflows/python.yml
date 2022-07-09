@@ -3,7 +3,7 @@ name: python
 
 on:
   push:
-    branches: [ main ]
+    branches: [ none ]
   workflow_dispatch:
 
 jobs:

@@ -3,7 +3,7 @@
 name: Composite Workflow
 on:
   push:
-    branches: [ main ]
+    branches: [ none ]
   create:
     tags: 
     - '*'
