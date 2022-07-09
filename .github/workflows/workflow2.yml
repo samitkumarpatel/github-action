@@ -1,9 +1,6 @@
 name: WorkFlowTwo
 
 on:
-  schedule:
-  - cron: '*/1 * * * *'
-    
   workflow_run:
     workflows: [ "WorkFlowOne" ]
     branches: [ main ]
@@ -12,10 +9,10 @@ on:
   workflow_dispatch:
  
 jobs:
-  job1:
-    name: job1
+  termination:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
-      - name: StepOne
-        run: | 
-            echo "Hello"
+      - name: Stop
+        run: |
+          echo "Stop has been invoked"
