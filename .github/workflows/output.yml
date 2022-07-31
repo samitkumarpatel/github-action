@@ -11,7 +11,8 @@ jobs:
       - id: step1
         run: |
           echo "::set-output name=test::hello"
-          echo "HEllO=yea loo" >> ${{ GITHUB_ENV }}
+          echo "HEllO=yea loo" >> $GITHUB_ENV
+          echo "action_state=yellow" >> $GITHUB_ENV
       - id: step2
         run: |
           echo "::set-output name=test::world"
@@ -29,3 +30,4 @@ jobs:
         echo ${{needs.job1.outputs.output1}} 
         echo ${{needs.job1.outputs.output2}}
         echo "Hello=${{env.HELLO}}"
+        env
