@@ -20,10 +20,13 @@ jobs:
         result=$(python3 <<EOF
         import requests
         import json
-        api = '${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
-        r = requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
-        v = json.loads(r.text)
-        print(v[0]['metadata']['container']['tags'][0])
+        api='${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
+        r=requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
+        if(r.status_code == 200):
+            v = json.loads(r.text)
+            print(v[0]['metadata']['container']['tags'][0])
+        else:
+            print('Something went wrong')
         EOF
         )
         
