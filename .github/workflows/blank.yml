@@ -14,13 +14,15 @@ jobs:
         python-version: 3.8
     - name: Instal Python Package
       run: pip3 install requests
-    - name: Get the latest package version number
+    - name: Prepare the python script
+      shell: bash
       run: |
-        python3 -c \
-        cat << EndOfMessage
+        cat <<EOF >> ${{github.workspace}}/script.py
         import requests
         api = '${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
         r = requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
         v = json.loads(r.text)
         print(v[0]['metadata']['container']['tags'][0])
-        EndOfMessage
+        EOF
+    - name: run
+      run: python3 script.py
