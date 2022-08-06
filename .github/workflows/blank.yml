@@ -1,4 +1,4 @@
-name: Python
+name: Python 3.x
 
 
 on:
@@ -16,8 +16,11 @@ jobs:
       run: pip3 install requests
     - name: Get the latest package version number
       run: |
+        python3 -c \
+        cat << EndOfMessage
         import requests
         api = '${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
         r = requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
         v = json.loads(r.text)
         print(v[0]['metadata']['container']['tags'][0])
+        EndOfMessage
