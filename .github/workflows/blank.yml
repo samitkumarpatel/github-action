@@ -26,4 +26,5 @@ jobs:
         print(v[0]['metadata']['container']['tags'][0])
         EOF
     - name: run
-      run: python3 ${{ github.workflow}}/script.py
+      shell: bash
+      run: python3 ${{ github.workflow }}/script.py
