@@ -27,4 +27,4 @@ jobs:
         EOF
     - name: run
       shell: bash
-      run: python3 ${{ github.workflow }}/script.py
+      run: python3 ${{ github.workspace }}/script.py
