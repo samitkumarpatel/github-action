@@ -19,10 +19,11 @@ jobs:
       run: |
         cat <<EOF >> ${{github.workspace}}/script.py
         import requests
+        import json
         api = '${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
         r = requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
         v = json.loads(r.text)
         print(v[0]['metadata']['container']['tags'][0])
         EOF
     - name: run
-      run: python3 script.py
+      run: python3 ${{ github.workflow}}/script.py
