@@ -17,7 +17,7 @@ jobs:
     - name: Prepare the python script
       shell: bash
       run: |
-        cat <<EOF >> ${{github.workspace}}/script.py
+        result=$(python3 -c <<EOF
         import requests
         import json
         api = '${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
@@ -25,6 +25,6 @@ jobs:
         v = json.loads(r.text)
         print(v[0]['metadata']['container']['tags'][0])
         EOF
-    - name: run
-      shell: bash
-      run: python3 ${{ github.workspace }}/script.py
+        )
+        
+        echo $result
