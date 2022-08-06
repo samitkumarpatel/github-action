@@ -17,7 +17,7 @@ jobs:
     - name: Prepare the python script
       shell: bash
       run: |
-        result=$(python3 -c <<EOF
+        result=$(python3 <<EOF
         import requests
         import json
         api = '${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
