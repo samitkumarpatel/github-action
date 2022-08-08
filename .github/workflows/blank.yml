@@ -14,16 +14,24 @@ jobs:
         python-version: 3.8
     - name: Instal Python Package
       run: pip3 install requests
-    - name: Prepare the python script
+    - name: run python script
       shell: python
       run: |
         import requests
         import json
+        import os
         #${{ github.event.repository.name }}
         api='${{ github.api_url }}/users/${{ github.actor }}/packages/container/springboot-reactive/versions'
         r=requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
         if(r.status_code == 200):
             v = json.loads(r.text)
             print(v[0]['metadata']['container']['tags'][0])
+            os.environ['LATEST_VERSION'] = v[0]['metadata']['container']['tags'][0]
         else:
             print('Something went wrong')
+   
+    - name: Print version
+      shell: bash
+      run: |
+        echo $LATEST_VERSION
+        printenv
