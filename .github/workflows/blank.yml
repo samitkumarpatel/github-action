@@ -15,9 +15,8 @@ jobs:
     - name: Instal Python Package
       run: pip3 install requests
     - name: Prepare the python script
-      shell: bash
+      shell: python
       run: |
-        result=$(python3 <<EOF
         import requests
         import json
         api='${{ github.api_url }}/users/${{ github.actor }}/packages/container/${{ github.event.repository.name }}/versions'
@@ -27,7 +26,3 @@ jobs:
             print(v[0]['metadata']['container']['tags'][0])
         else:
             print('Something went wrong')
-        EOF
-        )
-        
-        echo $result
