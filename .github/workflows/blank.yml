@@ -29,8 +29,6 @@ jobs:
             os.environ['LATEST_VERSION'] = v[0]['metadata']['container']['tags'][0]
         else:
             print('Something went wrong')
-            
-        echo Latest Version : $LATEST_VERSION
         
     - name: Print version
       shell: bash
