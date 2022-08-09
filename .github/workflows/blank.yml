@@ -23,10 +23,13 @@ jobs:
         #${{ github.event.repository.name }}
         api='${{ github.api_url }}/users/${{ github.actor }}/packages/container/springboot-reactive/versions'
         r=requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
+        env_file = os.getenv('GITHUB_ENV')
         if(r.status_code == 200):
             v = json.loads(r.text)
-            print(v[0]['metadata']['container']['tags'][0])
-            os.environ['LATEST_VERSION'] = v[0]['metadata']['container']['tags'][0]
+            latest_v=v[0]['metadata']['container']['tags'][0]
+            print(latest_v)
+            with open(env_file, "a") as myfile:
+              myfile.write("LATEST_VERSION=latest_v")
         else:
             print('Something went wrong')
         
