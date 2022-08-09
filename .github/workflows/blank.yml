@@ -29,7 +29,7 @@ jobs:
             latest_v=v[0]['metadata']['container']['tags'][0]
             print(latest_v)
             with open(env_file, "a") as myfile:
-              myfile.write("LATEST_VERSION=latest_v")
+              myfile.write("LATEST_VERSION="+latest_v)
         else:
             print('Something went wrong')
         
