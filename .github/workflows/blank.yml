@@ -39,7 +39,7 @@ jobs:
               myfile.write(f"LATEST_VERSION={latest_v}")
             
             # set to github action output context 
-            bashCommand=f'echo "::set-output name=LATEST_VERSION::{latest_v}"'
+            bashCommand=f"echo ::set-output name=LATEST_VERSION::{latest_v}"
             process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
             output,error=process.communicate()
         else:
