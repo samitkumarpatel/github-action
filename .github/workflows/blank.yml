@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      LATEST_VERSION: ${{ steps.find_version.outputs.LATEST_VERSION }}
     steps:
     - name: Setup Python
       uses: actions/setup-python@v4.2.0
@@ -15,21 +17,31 @@ jobs:
     - name: Instal Python Package
       run: pip3 install requests
     - name: run python script
+      id: find_version
       shell: python
       run: |
         import requests
         import json
         import os
-        #${{ github.event.repository.name }}
+        import subprocess
+        #To find the repo name - ${{ github.event.repository.name }}
         api='${{ github.api_url }}/users/${{ github.actor }}/packages/container/springboot-reactive/versions'
         r=requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
         env_file = os.getenv('GITHUB_ENV')
         if(r.status_code == 200):
             v = json.loads(r.text)
             latest_v=v[0]['metadata']['container']['tags'][0]
+            # debug
             print(latest_v)
+            
+            # write to an environment file
             with open(env_file, "a") as myfile:
               myfile.write(f"LATEST_VERSION={latest_v}")
+            
+            # set to github action output context 
+            bashCommand=f'echo "::set-output name=LATEST_VERSION::{latest_v}"'
+            process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+            output,error=process.communicate()
         else:
             print('Something went wrong')
         
@@ -38,3 +50,11 @@ jobs:
       run: |
         echo $LATEST_VERSION
         printenv
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Deploy
+      run: |
+        echo "Deploy Version: ${{needs.build.outputs.LATEST_VERSION}}"
