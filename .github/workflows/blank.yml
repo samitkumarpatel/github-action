@@ -17,7 +17,6 @@ jobs:
     - name: Instal Python Package
       run: pip3 install requests
     - name: run python script
-      id: find_version
       shell: python
       run: |
         import requests
@@ -40,6 +39,7 @@ jobs:
             print('Something went wrong')
         
     - name: Print version
+      id: find_version
       shell: bash
       run: |
         echo $LATEST_VERSION
