@@ -38,7 +38,7 @@ jobs:
             # write to an environment file
             with open(env_file, "a") as myfile:
               myfile.write(f"LATEST_VERSION={latest_v}")
-            echo(f"::set-output name=O_L_VERSION::{latest_v}")
+            echo(f"echo ::set-output name=O_L_VERSION::{latest_v}")
         else:
             print('Something went wrong')
         
