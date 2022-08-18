@@ -8,9 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      L_VERSION: ${{ steps.bash.outputs.L_VERSION }}
-      O_L_VERSION: ${{ steps.python.outputs.O_L_VERSION }}
-      dir: ${{ steps.python.outputs.dir }}
+      VERSION: ${{ steps.bash.outputs.VERSION }}
     steps:
     - name: Setup Python
       uses: actions/setup-python@v4.2.0
@@ -19,7 +17,6 @@ jobs:
     - name: Instal Python Package
       run: pip3 install requests sh
     - name: run python script
-      id: python
       shell: python
       run: |
         import requests
@@ -38,9 +35,7 @@ jobs:
             
             # write to an environment file
             with open(env_file, "a") as myfile:
-              myfile.write(f"LATEST_VERSION={latest_v}")
-            echo(f"::set-output name=O_L_VERSION::1234")
-            echo(f"::set-output name=dir::sth")
+              myfile.write(f"VERSION={latest_v}")
         else:
             print('Something went wrong')
         
@@ -48,8 +43,8 @@ jobs:
       id: bash
       shell: bash
       run: |
-        echo $LATEST_VERSION
-        echo "::set-output name=L_VERSION::$LATEST_VERSION"
+        echo $VERSION
+        echo "::set-output name=VERSION::$VERSION"
         printenv
   
   deploy:
@@ -58,6 +53,4 @@ jobs:
     steps:
     - name: Deploy
       run: |
-        echo "Deploy Version L_VERSION: ${{ needs.build.outputs.L_VERSION }}"
-        echo "Deploy Version O_L_VERSION : ${{ needs.build.outputs.O_L_VERSION }}"
-        echo "Deploy Version dir : ${{ needs.build.outputs.dir }}"
+        echo "Deploy Version L_VERSION: ${{ needs.build.outputs.VERSION }}"
