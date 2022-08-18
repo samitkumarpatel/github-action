@@ -10,6 +10,7 @@ jobs:
     outputs:
       L_VERSION: ${{ steps.bash.outputs.L_VERSION }}
       O_L_VERSION: ${{ steps.python.outputs.O_L_VERSION }}
+      dir: ${{ steps.python.outputs.dir }}
     steps:
     - name: Setup Python
       uses: actions/setup-python@v4.2.0
@@ -38,7 +39,8 @@ jobs:
             # write to an environment file
             with open(env_file, "a") as myfile:
               myfile.write(f"LATEST_VERSION={latest_v}")
-            echo(f"echo ::set-output name=O_L_VERSION::{latest_v}")
+            echo(f"::set-output name=O_L_VERSION::1234")
+            echo(f"::set-output name=dir::sth")
         else:
             print('Something went wrong')
         
@@ -56,5 +58,6 @@ jobs:
     steps:
     - name: Deploy
       run: |
-        echo "Deploy Version: ${{ needs.build.outputs.L_VERSION }}"
-        echo "Deploy Version: ${{ needs.build.outputs.O_L_VERSION }}"
+        echo "Deploy Version L_VERSION: ${{ needs.build.outputs.L_VERSION }}"
+        echo "Deploy Version O_L_VERSION : ${{ needs.build.outputs.O_L_VERSION }}"
+        echo "Deploy Version dir : ${{ needs.build.outputs.dir }}"
