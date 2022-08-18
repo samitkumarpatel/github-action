@@ -8,23 +8,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      L_VERSION: ${{ steps.find_version.outputs.L_VERSION }}
+      L_VERSION: ${{ steps.bash.outputs.L_VERSION }}
+      O_L_VERSION: ${{ steps.python.outputs.O_L_VERSION }}
     steps:
     - name: Setup Python
       uses: actions/setup-python@v4.2.0
       with:
         python-version: 3.8
     - name: Instal Python Package
-      run: pip3 install requests
+      run: pip3 install requests sh
     - name: run python script
+      id: python
       shell: python
       run: |
         import requests
         import json
         import os
+        import echo from sh
         #To find the repo name - ${{ github.event.repository.name }}
         api='${{ github.api_url }}/users/${{ github.actor }}/packages/container/springboot-reactive/versions'
-        r=requests.get(api, auth=('${{ github.actor }}','${{ secrets.GITHUB_TOKEN }}'))
+        r=requests.get(api, auth=('${{ github.repository_owner }}','${{ secrets.GITHUB_TOKEN }}'))
         env_file = os.getenv('GITHUB_ENV')
         if(r.status_code == 200):
             v = json.loads(r.text)
@@ -35,11 +38,12 @@ jobs:
             # write to an environment file
             with open(env_file, "a") as myfile:
               myfile.write(f"LATEST_VERSION={latest_v}")
+              echo(f"::set-output name=O_L_VERSION::{latest_v}")
         else:
             print('Something went wrong')
         
     - name: Print version
-      id: find_version
+      id: bash
       shell: bash
       run: |
         echo $LATEST_VERSION
@@ -52,4 +56,5 @@ jobs:
     steps:
     - name: Deploy
       run: |
-        echo "Deploy Version: ${{needs.build.outputs.L_VERSION}}"
+        echo "Deploy Version: ${{ needs.build.outputs.L_VERSION }}"
+        echo "Deploy Version: ${{ needs.build.outputs.O_L_VERSION }}"
