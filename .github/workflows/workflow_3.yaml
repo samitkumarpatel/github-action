@@ -1,0 +1,14 @@
+name: Useful Of Reusable Workflow
+on:
+ workflow_dispatch:
+jobs:
+  username-samit:
+    uses: ./on_workflow_call.yaml@main
+    with:
+      username: SAMIT
+    secrets: inherit
+  username-other:
+    uses: ./on_workflow_call.yaml@main
+    with:
+      username: OTHER
+    secrets: inherit
