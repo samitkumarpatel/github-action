@@ -3,12 +3,12 @@ on:
  workflow_dispatch:
 jobs:
   username-samit:
-    uses: ./on_workflow_call.yaml@main
+    uses: ./.github/workflows/on_workflow_call.yaml
     with:
       username: SAMIT
     secrets: inherit
   username-other:
-    uses: ./on_workflow_call.yaml@main
+    uses: ./.github/workflows/on_workflow_call.yaml
     with:
       username: OTHER
     secrets: inherit
