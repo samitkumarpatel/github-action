@@ -9,6 +9,6 @@ jobs:
         target: [dev, stage, prod]
     uses: ./.github/workflows/reusable-workflow.yaml
     with:
-      username: ${{ env.GITHUB_ACTOR }}
+      username: ${{ github.actor }}
       environment: ${{ matrix.target }}
       secrets: inherit
