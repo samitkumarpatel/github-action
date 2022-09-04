@@ -6,8 +6,9 @@ on:
         required: true
         type: string
       environment:
+        description: 'Environment to run tests against'
+        type: string
         required: true
-        type: environment
     secrets:
       envPAT:
         required: true
