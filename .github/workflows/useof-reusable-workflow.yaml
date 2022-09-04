@@ -1,4 +1,4 @@
-name: Reusable workflow with matrix strategy
+name: Reusable matrix workflow
 
 on:
   workflow_dispatch:
