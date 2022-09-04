@@ -3,7 +3,7 @@ name: Reusable matrix workflow
 on:
   workflow_dispatch:
 jobs:
-  ReuseableMatrixJobForDeployment:
+  deploy:
     strategy:
       matrix:
         target: [dev, stage, prod]
