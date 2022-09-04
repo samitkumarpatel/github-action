@@ -2,8 +2,18 @@ name: Reusable matrix workflow
 
 on:
   workflow_dispatch:
+ 
 jobs:
+  build:
+    name: Pass input and secrets to my-action
+    runs-on: ubuntu-latest
+    steps:
+    - name: step One
+      run: echo stepOne
+    - name: step two
+      run: echo stepTwo
   deploy:
+    needs: build
     strategy:
       matrix:
         target: [dev, stage, prod]
