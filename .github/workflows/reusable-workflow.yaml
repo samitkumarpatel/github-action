@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
-    - name: print
+    - name: prepare
       run: echo ${{ inputs.username }} invoke deployment for ${{ inputs.environment }}
-    - name: deploy
+    - name: invoke deployment
       run: echo ${{ inputs.environment }} completed!
                
