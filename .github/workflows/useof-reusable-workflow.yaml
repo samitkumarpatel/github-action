@@ -11,4 +11,3 @@ jobs:
     with:
       username: ${{ github.actor }}
       environment: ${{ matrix.target }}
-      secrets: inherit
