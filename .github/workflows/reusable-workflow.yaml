@@ -1,0 +1,26 @@
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: environment
+    secrets:
+      envPAT:
+        required: true
+jobs:
+  prepare:
+    name: Prepare Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ inputs.username }} invoke deployment for ${{ inputs.environment }}
+  deployment:
+    name: ${{ inputs.environment }} Deployment
+    needs: prepare
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: ${{ inputs.environment }} completed!
+               
