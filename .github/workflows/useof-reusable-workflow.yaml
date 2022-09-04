@@ -1,0 +1,14 @@
+name: Reusable workflow with matrix strategy
+
+on:
+  workflow_dispatch:
+jobs:
+  ReuseableMatrixJobForDeployment:
+    strategy:
+      matrix:
+        target: [dev, stage, prod]
+    uses: ./.github/workflows/reusable-workflow.yaml
+    with:
+      username: ${{ env.GITHUB_ACTOR }}
+      environment: ${{ matrix.target }}
+      secrets: inherit
