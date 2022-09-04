@@ -12,15 +12,17 @@ on:
    
 jobs:
   prepare:
-    name: Prepare Deployment
+    name: Prepare ${{ inputs.username }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ inputs.username }} invoke deployment for ${{ inputs.environment }}
+    - name: print
+      run: echo ${{ inputs.username }} invoke deployment for ${{ inputs.environment }}
   deployment:
-    name: ${{ inputs.environment }} Deployment
+    name: Deploy ${{ inputs.environment }}
     needs: prepare
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
-      - run: ${{ inputs.environment }} completed!
+      - name: deploy
+        run: echo ${{ inputs.environment }} completed!
                
