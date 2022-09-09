@@ -5,7 +5,7 @@ on:
       imageName:
         description: Docker Image Name (Mostly The Repository Name)
         type: string
-        default: ${{ github.repository }}
+        default: '${{ github.repository }}'
       imageVersion:
         description: Image Version (v1.0.0)
         type: string
