@@ -1,0 +1,22 @@
+name: Workflow Dispatch V1
+on:
+  workflow_dispatch:
+    inputs:
+      imageName:
+        description: Docker Image Name (Mostly The Repository Name)
+        type: string
+        default: ${{ github.repository }}
+      imageVersion:
+        description: Image Version (v1.0.0)
+        type: string
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: |
+          echo ${{ inputs.imageName }}
+          echo ${{ inputs.imageVersion }}
