@@ -28,15 +28,16 @@ jobs:
       with:
         #result-encoding: string
         script: |
-          console.log(`Workflow Inputs are : ${ context?.payload?.inputs }`)
+          console.log(`Workflow Inputs are : ${ JSON.stringify(context?.payload?.inputs, null, 2) }`)
           const selectedEnv = context?.payload?.inputs?.deployEnvironment || 'dev'
+          
           const dev=[{ "name" : "np-1" }]
           const preprod=[{ "name" : "np-1" },{ "name" : "np-2" }]
           
           const clusters = new Map()
           clusters.set('dev', dev)
           clusters.set('preprod', preprod)
-          core.setOutput('clusters', clusters);
+          core.setOutput('clusters', Array.from(clusters.values()));
           
           const selectedClusters = new Map()
           switch(selectedEnv) {
@@ -50,7 +51,7 @@ jobs:
               selectedClusters.set('dev', dev)
               selectedClusters.set('preprod', preprod)
           }
-          core.setOutput('selectedClusters', selectedClusters);
+          core.setOutput('selectedClusters', Array.from(selectedClusters.values()));
   deploy-env:
     runs-on: ubuntu-latest
     needs: deployment-information
