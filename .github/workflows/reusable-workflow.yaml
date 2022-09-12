@@ -56,8 +56,7 @@ jobs:
     needs: deployment-information
     strategy:
       matrix:
-        targetEnv : ['dev','preprod']
-        clstr: ['${{ needs.deployment-information.outputs.clusters.get(matrix.targetEnv) }}']
+        targetEnv : ${{ fromJson(needs.deployment-information.outputs.clusters) }}
     steps:
     - name: steps level matrix - ${{ matrix.targetEnv }}
       run: echo Target Environment is ${{ matrix.targetEnv }}
