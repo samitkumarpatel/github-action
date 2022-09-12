@@ -31,27 +31,27 @@ jobs:
           console.log(`Workflow Inputs are : ${ JSON.stringify(context?.payload?.inputs, null, 2) }`)
           const selectedEnv = context?.payload?.inputs?.deployEnvironment || 'dev'
           
-          const dev=[{ "name" : "np-1" }]
-          const preprod=[{ "name" : "np-1" },{ "name" : "np-2" }]
+          const dev=[{ "name" : "dev-np-1" }]
+          const preprod=[{ "name" : "pp-np-1" },{ "name" : "pp-np-2" }]
           
-          const clusters = new Map()
-          clusters.set('dev', dev)
-          clusters.set('preprod', preprod)
-          core.setOutput('clusters', Array.from(clusters.values()));
+          const clusters = []
+          dev.forEach((e) => clusters.push(e))
+          preprod.forEach((e) => clusters.push(e))
+          core.setOutput('clusters', clusters);
           
-          const selectedClusters = new Map()
+          const selectedClusters = []
           switch(selectedEnv) {
             case 'dev':
-              selectedClusters.set('dev', dev)
+              dev.forEach((e) => selectedClusters.push(e))
               break;
             case 'preprod':
-              selectedClusters.set('preprod', preprod)
+              preprod.forEach((e) => selectedClusters.push(e))
               break;
             default:
-              selectedClusters.set('dev', dev)
-              selectedClusters.set('preprod', preprod)
+              dev.forEach((e) => selectedClusters.push(e))
+              preprod.forEach((e) => selectedClusters.push(e))
           }
-          core.setOutput('selectedClusters', Array.from(selectedClusters.values()));
+          core.setOutput('selectedClusters', selectedClusters);
   deploy-env:
     runs-on: ubuntu-latest
     needs: deployment-information
@@ -60,7 +60,7 @@ jobs:
         #targetEnv : ${{ fromJson(needs.deployment-information.outputs.clusters) }}
         targetEnv : ${{ needs.deployment-information.outputs.clusters }}
     steps:
-    - name: steps level matrix - ${{ matrix.targetEnv }}
+    - name: steps level matrix - ${{ matrix.targetEnv.name }}
       run: echo Target Environment is ${{ matrix.targetEnv }}
       
         
