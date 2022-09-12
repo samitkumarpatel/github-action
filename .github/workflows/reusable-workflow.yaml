@@ -26,9 +26,10 @@ jobs:
         #result-encoding: string
         script: |
           console.log(context)
-          console.log(`Workflow Inputs are : `)
-  deployment:
+          console.log(`Workflow Inputs are : ${ context?.payload?.inputs }`)
+  deploy-env:
     runs-on: ubuntu-latest
+    needs: deployment-information
     strategy:
       matrix:
         targetEnv : ['dev','preprod']
