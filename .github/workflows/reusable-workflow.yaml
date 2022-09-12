@@ -2,22 +2,40 @@ name: Reusable Deploy Workflow
 on:
   workflow_call:
     inputs:
-      username:
-        required: true
+      dockerImage:
+        description: 'Docker Image Name'
         type: string
-      environment:
-        description: 'Environment to run tests against'
+        required: false
+      dockerImageVersion:
+        description: 'Docker Image Version'
+        type: string
+        required: true
+      deployEnvironment:
+        description: 'Deployment Environment'
         type: string
         required: true
    
 jobs:
-  deployment:
-    name: Deploy to ${{ inputs.environment }}
+  deployment-information:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
     steps:
-    - name: prepare
-      run: echo ${{ inputs.username }} invoke deployment for ${{ inputs.environment }}
-    - name: invoke deployment
-      run: echo ${{ inputs.environment }} completed!
+    - name: Information
+      uses: actions/github-script@v6
+      id: information
+      with:
+        #result-encoding: string
+        script: |
+          console.log(context)
+          console.log(`Workflow Inputs are : `)
+  deployment:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        targetEnv : ['dev','preprod']
+    steps:
+    - name: steps level matrix - ${{ matrix.targetEnv }}
+      run: echo Target Environment is ${{ matrix.targetEnv }}
+      
+        
+        
                
