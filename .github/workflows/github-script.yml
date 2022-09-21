@@ -1,0 +1,15 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Github Script
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const clusters = require('./.github/metadata/cluster.json')
+            console.log(clusters)
