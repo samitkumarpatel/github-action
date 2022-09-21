@@ -11,5 +11,5 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const clusters = await fetch('./.github/metadata/cluster.json').then((response) => response.json())
+            const clusters = github.request('./.github/metadata/cluster.json').then((response) => response.json())
             console.log(clusters)
