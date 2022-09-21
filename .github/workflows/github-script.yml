@@ -12,4 +12,4 @@ jobs:
         with:
           script: |
             const clusters = require('./.github/metadata/cluster.js')
-            console.log(clusters)
+            console.log(clusters())
