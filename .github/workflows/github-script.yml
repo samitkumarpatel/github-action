@@ -11,5 +11,5 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const clusters = require('./.github/metadata/cluster.json')
+            const clusters = require('./.github/metadata/cluster.js')
             console.log(clusters)
