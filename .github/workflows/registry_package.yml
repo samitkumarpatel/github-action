@@ -1,7 +1,7 @@
 name: Trigger Auto when Publish Package 
 on:
   registry_package:
-    types: [published]
+    types: [published, updated]
   workflow_dispatch:
 jobs:
   build:
@@ -10,3 +10,5 @@ jobs:
     - name: Package Info
       run: |
         echo 'Under Construction'
+    - run: 'echo "field: ${{ github.event.client_payload.foo }}"'
+    - run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'
