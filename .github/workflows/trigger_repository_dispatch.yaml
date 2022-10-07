@@ -1,5 +1,6 @@
 name: Trigger Repository Dispatch
-on: repository_dispatch
+on:
+  workflow_dispatch:
 jobs:
   test:
     name: Test
