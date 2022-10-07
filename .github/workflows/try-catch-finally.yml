@@ -14,7 +14,7 @@ jobs:
       run: echo 'Handled Error'
     - name: Retry
       if: ${{ failure() && steps.fail_expected.conclusion == 'failure' }}
-      run: echo 'I'm good now'
+      run: echo 'I am good now'
     - name: always
       if: always()
       run: |
