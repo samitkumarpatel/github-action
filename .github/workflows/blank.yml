@@ -1,0 +1,12 @@
+name: Trigger Auto when Publish Package 
+on:
+  registry_package:
+    types: [published]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Package Info
+      run: |
+        echo 'Under Construction'
