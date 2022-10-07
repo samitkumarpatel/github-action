@@ -13,7 +13,7 @@ jobs:
       if: failure()
       run: echo 'Handled Error'
     - name: Retry
-      #if: ${{ steps.fail_expected.conclusion == 'failure' && steps.failure_handler.conclusion == 'success' }}
+      if: ${{ failure() && steps.fail_expected.conclusion == 'failure' }}
       run: echo 'I'm good now'
     - name: always
       if: always()
