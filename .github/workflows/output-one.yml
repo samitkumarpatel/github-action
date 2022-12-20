@@ -11,14 +11,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.shell_output.outputs.stdout }}
+      output1: ${{ steps.shell_output_key_value.outputs.custom_stdout }}
+      output2: ${{ steps.shell_output.outputs.stdout }}
     steps:
+    - name: Shell Output Key Value
+      id: shell_output_key_value
+      run: echo "custom_stdout=Hello World from shell_output_key_value" >> $GITHUB_OUTPUT
     - name: Shell Output
       id: shell_output
-      run: echo "stdout=Hello World from shell_output" >> $GITHUB_OUTPUT
+      run: echo "Hello World Without Key Value"
   print_output:
     runs-on: ubuntu-latest
     needs: build
     steps:
-    - name: Shell Output Print
+    - name: output1 
       run: echo ${{ needs.build.outputs.output1 }}
+    - name: output2
+      run: echo ${{ needs.build.outputs.output2 }}
