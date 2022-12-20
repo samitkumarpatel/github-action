@@ -2,10 +2,6 @@ name: Output Example One
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
@@ -26,7 +22,7 @@ jobs:
       id: mvn_output
       run: |
         mvn --log-file mvnoutfile --version
-        echo "m_output=$(cat mvnoutfile)" >> $GITHUB_OUTPUT
+        echo "m_output=$(cat -s mvnoutfile)" >> $GITHUB_OUTPUT
   print_output:
     runs-on: ubuntu-latest
     needs: build
