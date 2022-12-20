@@ -13,7 +13,7 @@ jobs:
     outputs:
       output1: ${{ steps.shell_output_key_value.outputs.custom_stdout }}
       output2: ${{ steps.shell_output.outputs.stdout }}
-      output3: ${{ steps.mvn_output.outputs.output }}
+      output3: ${{ steps.mvn_output.outputs.m_output }}
     steps:
     - name: Shell Output Key Value
       id: shell_output_key_value
@@ -22,8 +22,11 @@ jobs:
       id: shell_output
       run: echo "Hello World Without Key Value"
     - name: Maven Shell Output
+      continue-on-error: true
       id: mvn_output
-      run: echo "output=$(mvn clean install)" >> $GITHUB_OUTPUT
+      run: |
+        mvn --log-file mvnoutfile clean install
+        echo "m_output=$(cat mvnoutfile)" >> $GITHUB_OUTPUT
   print_output:
     runs-on: ubuntu-latest
     needs: build
