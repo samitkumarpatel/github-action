@@ -36,3 +36,5 @@ jobs:
       run: echo ${{ needs.build.outputs.output3 }}
     - name: gh
       run: gh run view --log $GITHUB_RUN_ID
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
