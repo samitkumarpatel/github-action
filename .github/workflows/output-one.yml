@@ -32,6 +32,7 @@ jobs:
     - name: output2
       run: echo ${{ needs.build.outputs.output2 }}
     - name: output3
+      continue-on-error: true
       run: echo ${{ needs.build.outputs.output3 }}
     - name: gh
       run: gh run view --log $GITHUB_RUN_ID
