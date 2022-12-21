@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+    - uses: actions/checkout@v3
     - name: output1 
       run: echo ${{ needs.build.outputs.output1 }}
     - name: output2
