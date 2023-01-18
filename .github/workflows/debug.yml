@@ -2,13 +2,15 @@ name: Debug Pipeline
 
 on:
   workflow_dispatch:
+    inputs:
+      display:
+        description: Display Conditional Steps ?
+        type: boolean
+        default: false
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Github Script
@@ -19,3 +21,6 @@ jobs:
           console.log(context)
           console.log("##############")
           console.log(context.payload)
+    - name: conditional step
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || inputs.display
+      run: echo 'Hello I am executing'
