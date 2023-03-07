@@ -5,6 +5,10 @@ on:
     branches: [ none ]
 
   workflow_dispatch:
+    inputs:
+      folderToLL:
+        required: false
+        default: 'tmp'
 
 jobs:
   build:
@@ -19,3 +23,6 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: ls steps
+        run: ls -al
+        working-directory: ${{ inputs.folderToLL == 'tmp' && './temp' || github.workspace }}
