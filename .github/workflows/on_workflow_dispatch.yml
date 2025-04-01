@@ -29,8 +29,6 @@ jobs:
           printenv
       - name: Print context and github
         run: |
-          echo "=======context=========="
-          echo ${{ toJSON(context) }}
           echo "=======github=========="
           echo ${{ toJSON(github) }}
 
