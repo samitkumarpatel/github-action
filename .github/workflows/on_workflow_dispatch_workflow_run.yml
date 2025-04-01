@@ -1,0 +1,24 @@
+name: Deploy On Demand
+
+on:
+  workflow_run:
+    workflows: [ "Build On Demand" ]
+    types: [ completed ]
+
+jobs:
+  build:
+    name: Generic Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print github context result
+        run: |
+          echo "=======github=========="
+          echo "${{ toJSON(github) }}"
+          
+          echo "=======github.event=========="
+          echo "${{ toJSON(github.event) }}"
+          
+          echo "=======github.event.workflow_run=========="
+          echo "${{ toJSON(github.event.workflow_run) }}"
+
+      
