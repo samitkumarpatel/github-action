@@ -1,0 +1,37 @@
+name: Build On Demand
+run-name: 
+
+on:
+  #push:
+  #pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Generic Build
+    runs-on: ubuntu-latest
+    outputs:
+      custom-number: ${{ steps.set-version.outputs.CUSTOM_NO }}
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout repo
+        with:
+          fetch-depth: 0
+      - name: Set the env variable
+        id: set-version
+        run: |
+          echo "CUSTOM_NO=1234567890" >> "$GITHUB_ENV"
+          echo "CUSTOM_NO=1234567890" >> "$GITHUB_OUTPUT"
+      - name: Get the env variable
+        run:  |
+          echo "Hello World"
+          echo ${{ env.CUSTOM_NO }}
+          printenv
+      - name: Print context and github
+        run: |
+          echo "=======context=========="
+          echo ${{ toJSON(context) }}
+          echo "=======github=========="
+          echo ${{ toJSON(github) }}
+
+      
