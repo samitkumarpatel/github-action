@@ -12,6 +12,15 @@ jobs:
     steps:
       - name: Print github context result
         run: |
+          echo "=======github.run_id=========="
+          echo "${{ github.run_id }}"
+          
+          echo "=======github.event.workflow_run.conclusion=========="
+          echo "${{ github.event.workflow_run.conclusion }}"
+
+          echo "=======github.event.workflow_run.status=========="
+          echo "${{ github.event.workflow_run.status }}"
+
           echo "=======github=========="
           echo "${{ toJSON(github) }}"
           
