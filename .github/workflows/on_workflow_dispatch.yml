@@ -30,6 +30,6 @@ jobs:
       - name: Print context and github
         run: |
           echo "=======github=========="
-          echo ${{ toJSON(github) }}
+          echo "${{ toJSON(github) }}"
 
       
